@@ -12,10 +12,6 @@ const Base = ({
         <div>
             <Header/>
             <div className="container-fluid">
-                <div className="jumbotron my-2 bg-dark text-white text-center">
-                    <h2 className="display-4">{title}</h2>
-                    <p className="lead">{description}</p>
-                </div>
                 <div className={className}>
                     {children}
                 </div>
@@ -26,3 +22,8 @@ const Base = ({
 }
 
 export default Base
+
+// <div className="jumbotron my-2 bg-dark text-white text-center">
+//                     <h2 className="display-4">{title}</h2>
+//                     <p className="lead">{description}</p>
+//                 </div>

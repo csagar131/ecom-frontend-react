@@ -1,20 +1,17 @@
-const addItemToCart = (item,next) => {
+export const addItemToCart = (item,next) => {
     let cart = []
     if(window !== undefined){
         if(localStorage.getItem("cart")){
             cart = JSON.parse(localStorage.getItem("cart"))
         }
-
         cart.push({
             ...item,
         })
         localStorage.setItem("cart",JSON.stringify(cart))
-
         next()
     }
 }
 
-export default addItemToCart;
 
 export const loadCart = () =>{
     if(window !== undefined){
@@ -24,16 +21,13 @@ export const loadCart = () =>{
     }
 }
 
-export const removeItemFromCart = productId => {
+export const removeItemFromCart = productName => {
     let cart = []
-    if(window !== undefined){
+    if(typeof window !== undefined){
         if(localStorage.getItem("cart")){
            cart =  JSON.parse(localStorage.getItem("cart"))
         }
-        cart.filter((product) => {
-            return product.id !== productId
-        })
-    
+        cart = cart.filter(product => product.name !== productName)
         localStorage.setItem("cart",JSON.stringify(cart))
     }
 }

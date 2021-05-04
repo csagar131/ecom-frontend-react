@@ -23,7 +23,6 @@ export default function Home() {
 
     useEffect(() => {
         loadAllProducts()
-        console.log(products)
         // eslint-disable-next-line
     },[])
 
@@ -33,7 +32,7 @@ export default function Home() {
             {
                 products.map((product,index) =>{
                     return( <div key={index} className="col-4 mb-4">
-                                <Card product={product} addToCart={true} removeFromCart={false}/>
+                                <Card product={product} addToCart={true} removeFromCart={true}/>
                             </div>
                         )
                 })

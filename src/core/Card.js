@@ -1,5 +1,5 @@
 import React from "react";
-import addItemToCart from "./Helper/carthelper.";
+import {addItemToCart,removeItemFromCart} from "./Helper/carthelper";
 import ImageHelper from "./Helper/imagehelper";
 //import { Redirect } from "react-router-dom";
 
@@ -52,7 +52,9 @@ const Card = ({ product, addToCart = true, removeFromCart = true }) => {
               if (removeFromCart) {
                 return (
                   <button
-                    onClick={() => {}}
+                    onClick={()=> {
+                      removeItemFromCart(product.name)
+                    }}
                     className="btn btn-block btn-outline-danger mt-2 mb-2"
                   >
                     Remove from cart
