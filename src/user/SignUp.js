@@ -154,9 +154,6 @@ export default function Signup(props) {
       <div className="W-100 text-center mt-2" style={{ color: "white" }}>
         Already have an account? <Link to="/signin"> Log In </Link>
       </div>
-      <p className="text-center text-white">
-        {JSON.stringify(value)}
-      </p>
     </Base>
   );
 }

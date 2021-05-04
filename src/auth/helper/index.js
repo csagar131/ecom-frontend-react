@@ -43,6 +43,7 @@ export const isAuthenticated = () => {
         return false
     }
     if(localStorage.getItem("jwt")){
+
         return JSON.parse(localStorage.getItem("jwt"))
         //TODO: compare jwt with database token
     }
@@ -52,17 +53,17 @@ export const isAuthenticated = () => {
 }
 
 
-export const signout = next => {
+export const signout = async  next => {
     const userId = isAuthenticated() && isAuthenticated().user.id
     if(window !== undefined){
         cartEmpty(()=>{})
         //next()
 
-        return fetch(`${API}/user/logout/${userId}`,{
+        return await fetch(`${API}/user/logout/${userId}`,{
             method : "GET",
         })
         .then(response => {
-            console.log(response)
+            localStorage.removeItem("jwt")
             next()
         })
         .catch(err => console.log(err))

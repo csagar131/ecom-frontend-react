@@ -1,14 +1,61 @@
 import React from "react";
+import { Link, withRouter } from "react-router-dom";
+import { signout, isAuthenticated } from "../auth/helper/index";
 
-const Header = () => {
+const currentTab = (history, path) => {
+  if (history.location.pathname === path) {
+    return { color: "#2ecc72" };
+  } else {
+    return { color: "#ffffff" };
+  }
+};
+
+const showButton = (history, path) => {
+  if (isAuthenticated()) {
+    return (
+      <Link
+        onClick={() => {
+          signout();
+        }}
+        to="/"
+        style={currentTab(history, "/")}
+        className="btn btn-outline-success my-2 my-sm-0 mx-2"
+      >
+        Logout
+      </Link>
+    );
+  } else {
+    return (
+      <div>
+        <Link
+          to="/signup"
+          style={currentTab(history, "/signup")}
+          className="btn btn-outline-success my-2 my-sm-0 mx-5"
+        >
+          SignUp
+        </Link>
+        <Link
+          to="/signin"
+          style={currentTab(history, "/signin")}
+          className="btn btn-outline-success my-2 my-sm-0"
+        >
+          LogIn
+        </Link>
+      </div>
+    );
+  }
+};
+
+const Header = ({ history, path }) => {
   return (
     <div className="header">
-      <nav className="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-dark text-white"
-       style={{'position':'fixed','top':'0','width':'100%','zIndex':'1'}}
+      <nav
+        className="navbar navbar-fixed-top navbar-expand-lg navbar-dark bg-dark text-white"
+        style={{ position: "fixed", top: "0", width: "100%", zIndex: "1" }}
       >
-        <a className="navbar-brand" href="www.google.com">
-          Navbar
-        </a>
+        <Link className="navbar-brand" to="/">
+          My T-store
+        </Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -24,61 +71,55 @@ const Header = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav mr-auto">
             <li className="nav-item active">
-              <a className="nav-link" href="www.google.com">
-                Home <span className="sr-only">(current)</span>
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="www.google.com">
-                Link
-              </a>
-            </li>
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="www.google.com"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
+              <Link
+                style={currentTab(history, "/")}
+                className="nav-link"
+                to="/"
               >
-                Dropdown
-              </a>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a className="dropdown-item" href="www.google.com">
-                  Action
-                </a>
-                <a className="dropdown-item" href="www.google.com">
-                  Another action
-                </a>
-                <div className="dropdown-divider"></div>
-                <a className="dropdown-item" href="www.google.com">
-                  Something else here
-                </a>
-              </div>
+                Home <span className="sr-only">(current)</span>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link disabled" href="www.google.com">
-                Disabled
-              </a>
+              <Link
+                style={currentTab(history, "/user/dashboard")}
+                className="nav-link"
+                to="user/dashboard"
+              >
+                Dashboard
+              </Link>
             </li>
           </ul>
-          <form className="form-inline my-2 my-lg-0">
-            <input
-              className="form-control mr-sm-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
-              Search
-            </button>
-          </form>
+          {showButton(history, path)}
         </div>
       </nav>
     </div>
   );
 };
 
-export default Header;
+export default withRouter(Header);
+
+// <li className="nav-item dropdown">
+//               <a
+//                 className="nav-link dropdown-toggle"
+//                 href="www.google.com"
+//                 id="navbarDropdown"
+//                 role="button"
+//                 data-toggle="dropdown"
+//                 aria-haspopup="true"
+//                 aria-expanded="false"
+//               >
+//                 Dropdown
+//               </a>
+//               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+//                 <a className="dropdown-item" href="www.google.com">
+//                   Action
+//                 </a>
+//                 <a className="dropdown-item" href="www.google.com">
+//                   Another action
+//                 </a>
+//                 <div className="dropdown-divider"></div>
+//                 <a className="dropdown-item" href="www.google.com">
+//                   Something else here
+//                 </a>
+//               </div>
+//             </li>

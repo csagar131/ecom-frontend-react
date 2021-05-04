@@ -39,34 +39,33 @@ export default function Signup(props) {
     setLoading(true);
     await signin({ email, password })
       .then((data) => {
-        if(data.token){
-            authenticate(data.token)
-            setValue({
-                email: "",
-                password: "",
-                error: false,
-                success: true,
-                message: "Login Success",
-              });
-        }else{
-            //TODO: handle to already session exist
+        if(data.token) {
+          setValue({
+            email: "",
+            password: "",
+            error: false,
+            success: true,
+            message: "Login Success",
+          });
+          authenticate(data, () => {
+            history.push("/");
+          });
         }
-        
-        history.push("/");
+        // else{
+        //     //TODO: handle to already session exist
+        // }
       })
       .catch((err) => {
         setValue({
           ...value,
           error: true,
           success: false,
-          message: "SignUp Failed",
+          message: "Login Failed",
         });
-        return value.message;
       });
 
     setLoading(false);
   }
-
 
   function htmlForm() {
     return (
@@ -122,7 +121,6 @@ export default function Signup(props) {
       <div className="W-100 text-center mt-2" style={{ color: "white" }}>
         Don't have an account? <Link to="/signup"> Sign Up </Link>
       </div>
-      <p className="text-center text-white">{JSON.stringify(value)}</p>
     </Base>
   );
 }
