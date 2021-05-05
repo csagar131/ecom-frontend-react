@@ -1,30 +1,51 @@
-import React from "react";
+import React,{useState} from "react";
 import {addItemToCart,removeItemFromCart} from "./Helper/carthelper";
 import ImageHelper from "./Helper/imagehelper";
-//import { Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import {isAuthenticated} from "../auth/helper/index"
 
-var isAuthenticated = true;
 
-const Card = ({ product, addToCart = true, removeFromCart = true }) => {
+const Card = ({ 
+  product, 
+  addToCart = true, 
+  removeFromCart = true,
+  reload = undefined,
+  setReload = f => f,
+}) => {
+
+  const [redirect,setRedirect] = useState(false)
+  const [redirectToLoginPage,setRedirectToLoginPage] = useState(false)
+
   const addToCartMethod = () => {
-    if (isAuthenticated) {
-      addItemToCart(product, ()=>{})
+    if (isAuthenticated()) {
+      addItemToCart(product, ()=>{
+         setRedirect(true)
+      })
       console.log("added to cart");
     } else {
+      setRedirectToLoginPage(true)
       console.log("login required");
     }
   };
 
-//   const getRedirect = (redirect) => {
-//     if (redirect) {
-//       return <Redirect to="/cart" />;
-//     }
-//   };
+  const getRedirect = redirect => {
+    if (redirect) {
+      return <Redirect to="/cart" />;
+    }
+  };
+
+  const getRedirectToLogin = redirectToLoginPage =>{
+    if(redirectToLoginPage){
+      return <Redirect to="/signin" />
+    }
+  }
 
   return (
     <div className="card text-white bg-dark border border-info ">
       <div className="card-header lead">{product.name}</div>
       <div className="card-body">
+        {getRedirect(redirect)}
+        {getRedirectToLogin(redirectToLoginPage)}
         <ImageHelper product={product} />
         <p className="lead bg-success font-weight-normal text-wrap">
           {product.description}
@@ -54,6 +75,7 @@ const Card = ({ product, addToCart = true, removeFromCart = true }) => {
                   <button
                     onClick={()=> {
                       removeItemFromCart(product.name)
+                      setReload(!reload)
                     }}
                     className="btn btn-block btn-outline-danger mt-2 mb-2"
                   >

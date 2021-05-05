@@ -5,6 +5,7 @@ import UserDashboard from "./user/UserDashboard"
 import Home from "./core/Home";
 import SignUp from "./user/SignUp";
 import SignIn from "./user/SignIn"
+import Cart from "./core/Cart";
 
 const Routes = () => {
     return (
@@ -13,6 +14,7 @@ const Routes = () => {
                 <Route exact path="/" component={Home}/>
                 <Route path="/signup" component={SignUp}/>
                 <Route path="/signin" component={SignIn}/>
+                <Route path="/cart" component={Cart}/>
                 <PrivateRoute exact path="/user/dashboard" component={UserDashboard}/>
             </Switch>
         </Router>
