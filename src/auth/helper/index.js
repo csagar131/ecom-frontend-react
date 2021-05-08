@@ -32,14 +32,14 @@ export const signin = async user => {
 }
 
 export const authenticate = (data,next) =>{
-    if(window !== undefined){
+    if(typeof window !== undefined){
         localStorage.setItem("jwt",JSON.stringify(data))
         next()
     }
 }
 
 export const isAuthenticated = () => {
-    if(window === undefined){
+    if(typeof window === undefined){
         return false
     }
     if(localStorage.getItem("jwt")){
@@ -55,9 +55,8 @@ export const isAuthenticated = () => {
 
 export const signout = async  next => {
     const userId = isAuthenticated() && isAuthenticated().user.id
-    if(window !== undefined){
+    if(typeof window !== undefined){
         cartEmpty(()=>{})
-        //next()
 
         return await fetch(`${API}/user/logout/${userId}`,{
             method : "GET",

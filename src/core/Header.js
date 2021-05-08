@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, useHistory } from "react-router-dom";
 import { signout, isAuthenticated } from "../auth/helper/index";
 
 const currentTab = (history, path) => {
@@ -10,12 +10,14 @@ const currentTab = (history, path) => {
   }
 };
 
-const showButton = (history, path) => {
+const showButton = (history, path, history_route) => {
   if (isAuthenticated()) {
     return (
       <Link
         onClick={() => {
-          signout();
+          signout(() => {
+            history_route.push("/")
+          });
         }}
         to="/"
         style={currentTab(history, "/")}
@@ -47,6 +49,8 @@ const showButton = (history, path) => {
 };
 
 const Header = ({ history, path }) => {
+
+  const history_route = useHistory()
   return (
     <div className="header">
       <nav
@@ -89,7 +93,7 @@ const Header = ({ history, path }) => {
               </Link>
             </li>
           </ul>
-          {showButton(history, path)}
+          {showButton(history, path, history_route)}
         </div>
       </nav>
     </div>

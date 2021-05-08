@@ -5,8 +5,8 @@ import Base from "../core/Base";
 import { signin, authenticate } from "../auth/helper/index";
 
 export default function Signup(props) {
-  const history = useHistory();
   const [loading, setLoading] = useState(false);
+  const history = useHistory()
   const [value, setValue] = useState({
     email: "",
     password: "",
@@ -23,6 +23,7 @@ export default function Signup(props) {
       [evt.target.name]: evt.target.value,
     });
   };
+
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -46,9 +47,10 @@ export default function Signup(props) {
             error: false,
             success: true,
             message: "Login Success",
+            didRedirect : true
           });
           authenticate(data, () => {
-            history.push("/");
+            history.push("/")
           });
         }
         // else{
@@ -80,7 +82,7 @@ export default function Signup(props) {
       >
         <Card.Body style={{ color: "black" }}>
           <h2 className="text-center  mb-4">Log In</h2>
-          {value.error && <Alert variant="danger">{value.message}</Alert>}
+          {(value.error) && <Alert variant="danger">{value.message}</Alert>}
           <Form.Group id="email">
             <Form.Label>Email</Form.Label>
             <Form.Control
@@ -121,6 +123,9 @@ export default function Signup(props) {
       <div className="W-100 text-center mt-2" style={{ color: "white" }}>
         Don't have an account? <Link to="/signup"> Sign Up </Link>
       </div>
+      <p className="text-center text-white">
+        {JSON.stringify(value)}
+      </p>
     </Base>
   );
 }
