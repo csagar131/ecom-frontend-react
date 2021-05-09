@@ -39,13 +39,13 @@ const Cart = () => {
     }
   };
 
-  const loadCheckout = () => {
-    return (
-      <div>
-        <h1>Checkout</h1>
-      </div>
-    );
-  };
+  // const loadCheckout = () => {
+  //   return (
+  //     <div>
+  //       <h1>Checkout</h1>
+  //     </div>
+  //   );
+  // };
 
   return (
     <Base>
