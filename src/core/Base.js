@@ -1,21 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import Footer from "./Footer";
 import Header from "./Header";
+import Jumbotron from "./Jumbotron";
+import Notification from "./Notification";
 
 const Base = ({
   title = "My Title",
   description = "My description",
-  className = "bg-dark text-white p-4",
+  className = "text-white p-4",
+  display = "block",
   children,
 }) => {
+  const [notify, setNotify] = useState(false);
+
+  const showNotification = (flag) => {
+    if (flag) {
+      return <Notification show={notify} />;
+    }
+  };
+
   return (
     <div>
       <Header />
+      {showNotification(notify)}
       <div className="container-fluid">
-        <div className="jumbotron my-2 bg-dark text-white text-center">
-          <h2 className="display-4">{title}</h2>
-          <p className="lead">{description}</p>
-        </div>
+        <Jumbotron display={display} title={title} description={description} />
         <div className={className}>{children}</div>
       </div>
       <Footer />

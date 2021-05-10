@@ -111,8 +111,9 @@ const PaymentB = ({ products, reload = undefined, setReload = (f) => f }) => {
   };
 
   useEffect(() => {
-    getTheToken(userId,token)
-  },[])
+    getTheToken(userId, token);
+    // eslint-disable-next-line
+  }, []);
 
   const getAmount = () => {
     let amount = 0;
@@ -154,7 +155,7 @@ const PaymentB = ({ products, reload = undefined, setReload = (f) => f }) => {
   };
 
   return (
-    <div>
+    <div style={{position:"sticky", top:"20px"}}>
       <h3>Your Bill is: {getAmount()}</h3>
       <h3>{showBtnDropIn()}</h3>
     </div>

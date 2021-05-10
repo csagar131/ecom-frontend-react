@@ -13,18 +13,27 @@ const currentTab = (history, path) => {
 const showButton = (history, path, history_route) => {
   if (isAuthenticated()) {
     return (
-      <Link
-        onClick={() => {
-          signout(() => {
-            history_route.push("/")
-          });
-        }}
-        to="/"
-        style={currentTab(history, "/")}
-        className="btn btn-outline-success my-2 my-sm-0 mx-2"
-      >
-        Logout
-      </Link>
+      <div>
+        <Link 
+        to="/cart"
+        className="my-2 my-sm-0 mx-5"
+        style={currentTab(history, "/cart")}
+        >
+          <i className="fas fa-cart-plus"></i>
+        </Link>
+        <Link
+          onClick={() => {
+            signout(() => {
+              history_route.push("/");
+            });
+          }}
+          to="/"
+          style={currentTab(history, "/")}
+          className="my-2 my-sm-0 mx-2"
+        >
+          Logout
+        </Link>
+      </div>
     );
   } else {
     return (
@@ -32,14 +41,14 @@ const showButton = (history, path, history_route) => {
         <Link
           to="/signup"
           style={currentTab(history, "/signup")}
-          className="btn btn-outline-success my-2 my-sm-0 mx-5"
+          className="my-2 my-sm-0 mx-5"
         >
           SignUp
         </Link>
         <Link
           to="/signin"
           style={currentTab(history, "/signin")}
-          className="btn btn-outline-success my-2 my-sm-0"
+          className="my-2 my-sm-0"
         >
           LogIn
         </Link>
@@ -49,8 +58,7 @@ const showButton = (history, path, history_route) => {
 };
 
 const Header = ({ history, path }) => {
-
-  const history_route = useHistory()
+  const history_route = useHistory();
   return (
     <div className="header">
       <nav

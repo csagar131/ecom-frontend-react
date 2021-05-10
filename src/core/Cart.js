@@ -21,7 +21,7 @@ const Cart = () => {
     }
     else{
     return (
-      <div>
+      <div className="offset-2 col-8">
         {products.map((product, index) => {
           return (
             <Card
@@ -39,19 +39,14 @@ const Cart = () => {
     }
   };
 
-  // const loadCheckout = () => {
-  //   return (
-  //     <div>
-  //       <h1>Checkout</h1>
-  //     </div>
-  //   );
-  // };
 
   return (
     <Base>
-      <div className="row text-center">
-        <div className="col-6">{loadAllProducts(products)}</div>
-        <div className="col-6">{
+      <div className="row text-center" style={{background:"white"}}>
+        <div className="col-md-6 col-sm-12  col-xs-12">
+          <div>{loadAllProducts(products)}</div>
+        </div>
+        <div className="col-md-6 col-sm-12  col-xs-12">{
           products.length > 0 ? (
             <PaymentB products = {products} setReload={setReload}/>
           ) : (

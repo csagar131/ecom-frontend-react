@@ -74,7 +74,7 @@ export default function Signup(props) {
       <Card
         style={{
           margin: "0 auto",
-          minWidth: "400px",
+          minWidth: "200px",
           maxWidth: "400px",
           boxSizing: "border-box",
           marginTop: "50px",
@@ -118,14 +118,11 @@ export default function Signup(props) {
   }
 
   return (
-    <Base>
+    <Base display="none">
       {htmlForm()}
-      <div className="W-100 text-center mt-2" style={{ color: "white" }}>
+      <div className="W-100 text-center text-dark mt-2" style={{ color: "white" }}>
         Don't have an account? <Link to="/signup"> Sign Up </Link>
       </div>
-      <p className="text-center text-white">
-        {JSON.stringify(value)}
-      </p>
     </Base>
   );
 }

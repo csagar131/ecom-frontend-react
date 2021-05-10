@@ -1,57 +1,59 @@
-import React,{useState} from "react";
-import {addItemToCart,removeItemFromCart} from "./Helper/carthelper";
+import React, { useState } from "react";
+import { addItemToCart, removeItemFromCart } from "./Helper/carthelper";
 import ImageHelper from "./Helper/imagehelper";
 import { Redirect } from "react-router-dom";
-import {isAuthenticated} from "../auth/helper/index"
+import { isAuthenticated } from "../auth/helper/index";
 
 
-const Card = ({ 
-  product, 
-  addToCart = true, 
+const Card = ({
+  product,
+  addToCart = true,
   removeFromCart = true,
   reload = undefined,
-  setReload = f => f,
-}) => {
-
-  const [redirect,setRedirect] = useState(false)
-  const [redirectToLoginPage,setRedirectToLoginPage] = useState(false)
+  setReload = (f) => f,
+},props) => {
+  const [redirect, setRedirect] = useState(false);
+  const [redirectToLoginPage, setRedirectToLoginPage] = useState(false);
 
   const addToCartMethod = () => {
     if (isAuthenticated()) {
-      addItemToCart(product, ()=>{
-         setRedirect(true)
-      })
-      console.log("added to cart");
+      addItemToCart(product, () => {
+        setRedirect(true);
+      });
     } else {
-      setRedirectToLoginPage(true)
-      console.log("login required");
+      setRedirectToLoginPage(true);
+      
     }
   };
 
-  const getRedirect = redirect => {
+  const getRedirect = (redirect) => {
     if (redirect) {
       return <Redirect to="/cart" />;
     }
   };
 
-  const getRedirectToLogin = redirectToLoginPage =>{
-    if(redirectToLoginPage){
-      return <Redirect to="/signin" />
+  const getRedirectToLogin = (redirectToLoginPage) => {
+    if (redirectToLoginPage) {
+      return <Redirect to="/signin" />;
     }
-  }
+  };
 
   return (
-    <div className="card text-white bg-dark border border-info ">
-      <div className="card-header lead">{product.name}</div>
+    <div className="card">
+      {getRedirect(redirect)}
+      {getRedirectToLogin(redirectToLoginPage)}
+      <ImageHelper className="card-img-top" product={product} />
       <div className="card-body">
-        {getRedirect(redirect)}
-        {getRedirectToLogin(redirectToLoginPage)}
-        <ImageHelper product={product} />
-        <p className="lead bg-success font-weight-normal text-wrap">
-          {product.description}
-        </p>
+        <h5 className="card-title">{product.name}</h5>
+        <p className="card-text">{product.description}</p>
         <p className="btn btn-success rounded  btn-sm px-4">
-          Rs. {product.price}
+          Rs. {product.price}/-
+        </p>
+        <p className="card-text">
+          <small className="text-muted">Only {product.stock} left in stock</small>
+        </p>
+        <p className="card-text">
+          <small className="text-muted">Last updated : {product.updated_at.split("T")[0]}</small>
         </p>
         <div className="row">
           <div className="col-12">
@@ -73,9 +75,9 @@ const Card = ({
               if (removeFromCart) {
                 return (
                   <button
-                    onClick={()=> {
-                      removeItemFromCart(product.name)
-                      setReload(!reload)
+                    onClick={() => {
+                      removeItemFromCart(product.name);
+                      setReload(!reload);
                     }}
                     className="btn btn-block btn-outline-danger mt-2 mb-2"
                   >
@@ -89,6 +91,6 @@ const Card = ({
       </div>
     </div>
   );
-};
+}
 
 export default Card;

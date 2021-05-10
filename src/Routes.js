@@ -6,6 +6,7 @@ import Home from "./core/Home";
 import SignUp from "./user/SignUp";
 import SignIn from "./user/SignIn"
 import Cart from "./core/Cart";
+import NotFound from "./core/NotFound";
 
 const Routes = () => {
     return (
@@ -16,6 +17,7 @@ const Routes = () => {
                 <Route path="/signin" component={SignIn}/>
                 <Route path="/cart" component={Cart}/>
                 <PrivateRoute exact path="/user/dashboard" component={UserDashboard}/>
+                <Route component={NotFound}/>
             </Switch>
         </Router>
     )

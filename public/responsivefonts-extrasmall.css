@@ -1,0 +1,4 @@
+/* Extra small devices (phones, up to 767px) */
+@media screen and (max-width: 767px) {
+	body,p{font-size: 14px;}
+}
