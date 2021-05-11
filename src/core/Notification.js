@@ -8,7 +8,7 @@ const Notification = (props) => {
         <div
         className = {`${classname1} ${classname2}`}
         >
-            Added to cart
+            Item Added to cart
         </div>
     )
 }

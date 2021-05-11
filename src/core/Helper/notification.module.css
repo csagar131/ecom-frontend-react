@@ -4,19 +4,19 @@
     top: 20px;
     left : 100%;
     width : 340px;
-    padding: 22px 30px;
+    padding: 10px 15px;
     border-radius : 12px;
     background-color : #ffc350;
     z-index: 1;
 }
 
 .Show {
-    animation: showup 0.3s ease-out;
+    animation: showup 1s ease-out;
     animation-fill-mode: forwards;
 }
 
 .Hide {
-    animation:  hideup 0.3s ease-out;
+    animation:  hideup 3s ease-out;
     animation-fill-mode: forwards;
 }
 
